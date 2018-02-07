@@ -34,5 +34,5 @@ class DummyScorer:
         for key in feature_scores:
             feature_scores[key] /= len(words)
 
-        return feature_scores
+        return [d for k, d in feature_scores.items()]
         
