@@ -8,11 +8,12 @@ import warnings
 warnings.filterwarnings(action="ignore", module="scipy", message="^internal gelsd") # ignore this
 
 # initialize variables
+print("reading data...")
 labels, data = load_data("data/real_data.txt")
 feat_scores = []
 values = []
 
-print("reading data...")
+print("scoring data...")
 for entry in data:
     feat_scores.append(DummyScorer.get_feature_scores(entry[0]))
     values.append(entry[2:])
