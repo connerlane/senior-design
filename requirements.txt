@@ -1,0 +1,6 @@
+nltk
+scikit-learn
+numpy
+scipy
+speechrecognition
+pyaudio

@@ -1,0 +1,32 @@
+{
+  "Abe Lincoln": {
+    "text": "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal. Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this. But, in a larger sense, we can not dedicate -- we can not consecrate -- we can not hallow -- this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us -- that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion -- that we here highly resolve that these dead shall not have died in vain -- that this nation, under God, shall have a new birth of freedom -- and that government of the people, by the people, for the people, shall not perish from the earth.",
+    "laziness": 0,
+    "agreeableness": 75,
+    "honesty": 100
+  },
+  "Conner": {
+    "text": "Hi there. Im conner. I like to play video games and eat hummus. I play the guitar and im trying to learn piano as well. I think that programming and machine learning is really neat.",
+    "laziness": 99,
+    "agreeableness": 80,
+    "honesty": 75
+  },
+  "Eric": {
+    "text": "Im not entirely sure what Eric would say here, and also im going to randomly pick values for his traits. (pls dont be offended eric). Eric likes to skateboard, and he has dyed hair. He speaks at least three languages, and is good at designing software.",
+    "laziness": 20,
+    "agreeableness": 95,
+    "honesty": 50
+  },
+  "Bill Clinton": {
+    "text": "The first time I saw her we were, appropriately enough, in a class on political and civil rights. She had thick blond hair, big glasses, wore no makeup, and she had a sense of strength and self- possession that I found magnetic. After the class I followed her out, intending to introduce myself. I got close enough to touch her back, but I couldn’t do it. Somehow I knew this would not be just another tap on the shoulder, that I might be starting something I couldn’t stop.",
+    "laziness": 30,
+    "agreeableness": 95,
+    "honesty": 1
+  },
+  "Hillary Clinton": {
+    "text": "Last night, I congratulated Donald Trump and offered to work with him on behalf of our country. I hope that he will be a successful president for all Americans. This is not the outcome we wanted or we worked so hard for and I’m sorry that we did not win this election for the values we share and the vision we hold for our country. But I feel pride and gratitude for this wonderful campaign that we built together, this vast, diverse, creative, unruly, energized campaign. You represent the best of America and being your candidate has been one of the greatest honors of my life.",
+    "laziness": 25,
+    "agreeableness": 20,
+    "honesty": 45
+  }
+}
