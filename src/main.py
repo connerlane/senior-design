@@ -1,7 +1,6 @@
 from dummy_scorer import DummyScorer
 import json
 from sklearn.linear_model import LinearRegression
-import speech_recognition as sr
 from time import sleep
 from helpers import *
 import warnings
@@ -23,21 +22,7 @@ print("training model...\n")
 reg_model = LinearRegression()
 reg_model.fit(feat_scores, values)
 
-# get user speech
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Tell me about yourself! The more the better!")
-    audio = r.listen(source)
-
-# recognize speech using Google Speech Recognition
-try:
-    transcription = r.recognize_google(audio)
-except sr.UnknownValueError:
-    print("Google Speech Recognition could not understand audio")
-    exit()
-except sr.RequestError as e:
-    print("Could not request results from Google Speech Recognition service; {0}".format(e))
-    exit()
+transcription = get_speech("Tell me about yourself! The more the better!")
 
 print("\nyou said:\n\t\"{}\"\n".format(transcription))
 sleep(1.5) # these are just for output buffer for readability
