@@ -32,11 +32,12 @@ try:
     transcription = r.recognize_google(audio)
 except sr.UnknownValueError:
     print("Google Speech Recognition could not understand audio")
+    exit()
 except sr.RequestError as e:
     print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    exit()
 
-
-print("\nyou said:\n\"\t{}\"\n".format(transcription))
+print("\nyou said:\n\t\"{}\"\n".format(transcription))
 sleep(2) # these are just for output buffer for readability
 
 # get feature scores from translated speech
