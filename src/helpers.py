@@ -1,4 +1,15 @@
 import speech_recognition as sr
+from nltk.tokenize import TweetTokenizer, sent_tokenize
+from nltk.stem import PorterStemmer
+from json import load
+
+DICTIONARY_FILE = "src/data/stemmed_liwc.json"
+LABELS_FILE = "src/data/labels.txt"
+
+with open(LABELS_FILE, "r") as f:
+    LABELS = [l[:-1] for l in list(f)]
+with open(DICTIONARY_FILE, "r") as f:
+    DIC = load(f)
 
 
 def load_data(filename):
@@ -23,7 +34,8 @@ def load_data(filename):
             else:
                 l = line[:-1].split("\t")
                 text = " ".join(l[1:39]).replace("\"", "")
-                data.append(tuple([text] + l[39:]))
+                data.append(tuple([text] + [l[39]] + [float(x)
+                                                      for x in l[40:]]))
         return labels, tuple(data)
 
 
@@ -84,3 +96,40 @@ def parse_dic_file(dic_file):
             q = word.split("\t")
             word_dic[q[0]] = [label_map[x] for x in q[1:]]
         return labels, word_dic
+
+
+def extract_features(input_string):
+    """Extract feature scores from a string. Uses global variables LABELS and
+    DIC from helpers.py
+
+    Args:
+        input_string (string): the string to be scored
+
+    Returns:
+        tuple: the labels of each score
+        tuple: the corresponding score values
+    """
+
+    tknzr = TweetTokenizer()
+    ps = PorterStemmer()
+
+    stemmed_and_tokenized = [ps.stem(k) for k in tknzr.tokenize(input_string)]
+    words_per_sentence = len(stemmed_and_tokenized) / \
+        len(sent_tokenize(input_string))
+
+    labels = tuple(LABELS)
+    scores = [0] * len(labels)
+    for word in stemmed_and_tokenized:
+        if word in DIC:
+            for label in DIC[word]:
+                scores[labels.index(label)] += 1
+    scores = [(s * 100) / len(stemmed_and_tokenized) for s in scores]
+
+    # post processing add-ins
+    scores[labels.index("WPS")] = words_per_sentence
+
+    return labels, tuple(scores)
+
+
+def percent_error(expected, actual):
+    return abs(expected - actual) / expected
