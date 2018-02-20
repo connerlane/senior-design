@@ -5,3 +5,4 @@ scipy
 speechrecognition
 pyaudio
 liwc
+matplotlib
