@@ -63,9 +63,6 @@ for x, r in enumerate(results):
 #                                                      7 != 0 else "", labels[x + 2], r))
 
 
-
-
-
 import matplotlib.pyplot as plt
 import numpy as np
 WIDTH = 0.4
@@ -83,7 +80,10 @@ plt.show()
 
 a1 = np.array(test_point[2:])
 a2 = np.array(results)
-plt.bar(labels[2:], abs(a1 - a2), label="difference")
+diff = abs(a1 - a2)
+plt.text(-1, max(diff), "Average Error: {:2f}".format(np.mean(diff)))
+plt.text(-1, max(diff)- 4, "Standard Deviation: {:2f}".format(np.std(diff)))
+plt.bar(labels[2:], diff, label="difference")
 plt.title("Predicted vs actual Difference")
 plt.xticks(rotation='vertical')
 plt.gcf().subplots_adjust(bottom=0.32)
