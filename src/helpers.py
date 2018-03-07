@@ -1,3 +1,4 @@
+import numpy as np
 import speech_recognition as sr
 from nltk.tokenize import TweetTokenizer, sent_tokenize
 from nltk.stem import PorterStemmer
@@ -19,8 +20,8 @@ def load_data(filename):
         filename (string): location of the data file
 
     Returns:
-        tuple: labels of the questions and the personality traits
-        tuple: 2D tuple of data where each row is a data point and each column corresponds to a label
+        numpy array: labels of the questions and the personality traits
+        numpy array: 2D numpy matrix of data where each row is a data point and each column corresponds to a label
     """
 
     with open(filename, "r") as f:
@@ -30,13 +31,13 @@ def load_data(filename):
             if x == 0:
                 labels = line[:-1].split("\t")[38:]
                 labels[0] = "text"
-                labels = tuple(labels)
+                labels = np.array(labels)
             else:
                 l = line[:-1].split("\t")
                 text = " ".join(l[1:39]).replace("\"", "")
-                data.append(tuple([text] + [l[39]] + [float(x)
-                                                      for x in l[40:]]))
-        return labels, tuple(data)
+                data.append([text] + [l[39]] + [float(x)
+                                                for x in l[40:]])
+        return labels, np.array(data)
 
 
 def get_speech(prompt):
@@ -75,7 +76,7 @@ def parse_dic_file(dic_file):
         dic_file (string): the path to the .dic file
 
     Returns:
-        tuple: the labels at the top of the .dic file
+        np array: the labels at the top of the .dic file
         dict: all of the words in the dictionary mapped to a list of their corresponding labels
     """
 
@@ -90,7 +91,7 @@ def parse_dic_file(dic_file):
             q = item.split("\t")
             label_map[q[0]] = q[1]
         word_map = l[split + 1:]
-        labels = tuple([value for key, value in label_map.items()])
+        labels = np.array([value for key, value in label_map.items()])
         word_dic = dict()
         for word in word_map:
             q = word.split("\t")
@@ -106,8 +107,8 @@ def extract_features(input_string):
         input_string (string): the string to be scored
 
     Returns:
-        tuple: the labels of each score
-        tuple: the corresponding score values
+        numpy array: the labels of each score
+        numpy array: the corresponding score values
     """
 
     tknzr = TweetTokenizer()
@@ -128,8 +129,24 @@ def extract_features(input_string):
     # post processing add-ins
     scores[labels.index("WPS")] = words_per_sentence
 
-    return labels, tuple(scores)
+    return np.array(labels), np.array(scores)
 
 
-def percent_error(expected, actual):
-    return abs(expected - actual) / expected
+def calculate_error(predicted, actual):
+    """Returns the mean error along the first axis 
+
+    Args:
+        predicted (numpy array): The predicted scores
+        actual (numpy array): the actual scores
+
+    Raises:
+        ValueError: if the arrays are not 2D or have unequal shapes an exception will be raised
+
+    Returns:
+        numpy array: a vector of the average scores
+    """
+
+    if len(predicted.shape) != 2 or predicted.shape != actual.shape:
+        raise ValueError("Predicted and actual must both have shape (N, M)")
+    return np.mean(np.absolute(np.subtract(predicted,actual)), axis=0)
+
