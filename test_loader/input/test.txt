@@ -1,0 +1,14 @@
+{
+	"test001": {
+		"testCondition": "condition",
+		"expectedResult": "result"
+	},
+	"test002": {
+		"testCondition": "condition",
+		"expectedResult": "result"
+	},
+	"test003": {
+		"testCondition": "condition",
+		"expectedResult": "result"
+	}
+}
