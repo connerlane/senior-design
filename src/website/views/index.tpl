@@ -34,7 +34,7 @@
               <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px" href="/upload"><i class="material-icons right">arrow_downward</i>View/Download Data</a>
             </div>
             <div class="col s4">
-              <a class="waves-effect waves-light btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px" href="/question"><i class="material-icons right">edit</i>Interview A Candidate</a>
+              <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px" href="/question"><i class="material-icons right">edit</i>Interview A Candidate</a>
             </div>
           </div>
           <hr width="75%" align="center">
