@@ -15,22 +15,23 @@
 
   <!-- FONT
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
+<!--     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+ -->
   <!-- CSS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!--<link rel="stylesheet" href="/static/css/normalize.css">-->
     <link rel="stylesheet" href="/static/css/skeleton.css">
+    <!--<link rel="stylesheet" href="/static/css/materialize.css"> -->
 
   <!-- Favicon
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+ <!--    <link rel="icon" type="image/png" href="/static/images/favicon.png"> -->
 
-  </head>
-  <body>
+</head>
+<body>
     % if "username" in sess or title == "Login":
     % if "username" in sess:
-    <div style="text-align: right; margin: 3% 3% -10%;">
+    <div style="text-align: right; margin: 3% 3% -10%">
       <div class="row">
         <h5>
         % if 'has_picture' in sess and sess['has_picture']:
@@ -44,7 +45,7 @@
           %end
         </a></h5>
       </div>
-      <h6><a style="color: red" href="/logout">Logout</a></h6>
+      <h6><a style="color: orange" href="/logout">Logout</a></h6>
     </div>
     % end
   <!-- Primary Page Layout
@@ -60,7 +61,15 @@
         </div>
       </div>
     </div>
-
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js">
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+      <script>
+        $(document).ready(function(){
+          $('.parallax').parallax();
+        });
+      </script>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
