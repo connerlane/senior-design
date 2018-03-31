@@ -6,3 +6,4 @@ speechrecognition
 pyaudio
 liwc
 matplotlib
+bottle

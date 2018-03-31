@@ -151,6 +151,14 @@ def index():
 def ask_question():
     return template('question', sess=get_session())
 
+@get('/upload', name='upload_file')
+def upload_file():
+    return template('upload', sess=get_session())
+
+@get('/viewdownload', name='view_download')
+def view_download():
+    return template('viewdownload', sess=get_session())
+
 
 
 @route('/denied', name='denied')
