@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import warnings
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from sklearn.neural_network import MLPRegressor
 from tabulate import tabulate
 from helpers import *
 warnings.filterwarnings(action="ignore", module="scipy",
@@ -32,7 +32,7 @@ for i in range(NUM_PARTITIONS):
     for entry in train:
         x_train.append(extract_features(entry[0])[1])
         y_train.append(np.array([float(e) for e in entry[2:]]))
-    reg_model = LinearRegression()
+    reg_model = MLPRegressor()
     reg_model.fit(x_train, y_train)
 
     x_val = []
@@ -42,7 +42,7 @@ for i in range(NUM_PARTITIONS):
         y_val.append(np.array([float(e) for e in entry[2:]]))
     pred = reg_model.predict(x_val)
     table.append(calculate_error(pred, np.array(y_val)))
-    with open("output.txt", "w") as f:
+    with open("output_NN.txt", "w") as f:
         new_table = np.array(table)
         h = ["Label"] + ["Iter. {}".format(q + 1) for q in range(i + 1)]
         f.write(tabulate(new_table, headers=labels[2:]))
