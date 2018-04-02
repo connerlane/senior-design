@@ -7,3 +7,5 @@ pyaudio
 liwc
 matplotlib
 bottle
+plotly==2.5.1
+beaker
