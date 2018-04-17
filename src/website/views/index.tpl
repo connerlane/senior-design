@@ -29,12 +29,12 @@
       <div class="row" style="text-align: center; margin-top: 0%; margin-bottom: 0%">
         <div class="col s4">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px;height: 90px; width: 400px"
-            href="/viewdownload">
+            href="/upload">
             <i class="material-icons right">arrow_upward</i>Upload Data</a>
         </div>
         <div class="col s4">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
-            href="/upload">
+            href="/viewdownload">
             <i class="material-icons right">arrow_downward</i>View/Download Data</a>
         </div>
         <div class="col s4">
