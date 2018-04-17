@@ -3,7 +3,7 @@ import io
 import locale
 import pickle
 from sqlite3 import DatabaseError
-
+import warnings
 import bottle
 from bottle import template, static_file, redirect, request, get, post, route
 from beaker.middleware import SessionMiddleware
@@ -11,9 +11,10 @@ from sqlite3 import DatabaseError
 from random import choice
 
 from db_utils.users import UserDatabase, User
-
+from helpers import *
 locale.setlocale(locale.LC_ALL, '')
-
+warnings.filterwarnings(action="ignore", module="scipy",
+                        message="^internal gelsd")  # ignore this
 user_db = UserDatabase('db/user_database.db')
 
 session_opts = {
@@ -26,6 +27,13 @@ session_opts = {
     'session.auto': True
 }
 app = SessionMiddleware(bottle.app(), session_opts)
+
+
+# Globals
+QUESTIONS = load_questions('data/questions.txt')
+
+
+MODEL = train_model()
 
 
 ###############################################################################
@@ -126,7 +134,8 @@ def create_user():
     if request.method == 'POST':
         username = request.forms['username']
         role = request.forms['role']
-        ranges = list(range(48, 58)) + list(range(65, 91)) + list(range(97, 123))
+        ranges = list(range(48, 58)) + list(range(65, 91)) + \
+            list(range(97, 123))
         temp_password = "".join([chr(choice(ranges)) for i in range(12)])
         try:
             user_db.add_user(username, temp_password, role)
@@ -146,19 +155,93 @@ def index():
         return template('index', sess=get_session())
 
 
+@get('/start_interview', name='start_interview')
+def start_interview():
+    session = get_session()
+    session['current_question'] = 0
+    session['answers'] = []
+    redirect('/question')
 
+
+@post('/question')
 @get('/question', name='ask_question')
 def ask_question():
-    return template('question', sess=get_session())
+    session = get_session()
+    if 'current_question' not in session:
+        redirect('/')
+    if request.method == 'POST':
+
+        session['answers'].append(request.forms.get(
+            'answer').replace('\r\n', ' ').strip())
+        session['current_question'] += 1
+        if session['current_question'] >= len(QUESTIONS):
+            session['survey_complete'] = True
+            redirect('/show_results')
+        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']])
+    else:
+        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']])
+
+
+@route('/show_results', name='show_results')
+def show_results():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+
+
+    
+
+    
+    redirect('/choose_view_format')
+
+@route('/choose_view_format', name='choose_view_format')
+def choose_view_format():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    return template('choose_view_format', sess=get_session())
+
+@route('/thank_you', name='thank_you')
+def thank_you():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    del session['survey_complete']
+    del session['current_question']
+    del session['answers']
+    return template('thank_you', sess=get_session())
+
+@route('/raw', name='raw')
+def raw():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    feature_scores = extract_features(" ".join(session['answers'][1:]))[1].reshape(1, -1)
+    results = MODEL.predict(feature_scores)[0]
+    snap_boundaries(results)
+    generate_report(results)
+    return template('choose_view_format', sess=get_session())
+
+@route('/percentile', name='percentile')
+def percentile():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    feature_scores = extract_features(" ".join(session['answers'][1:]))[1].reshape(1, -1)
+    results = MODEL.predict(feature_scores)[0]
+    snap_boundaries(results)
+    generate_report_comparison(results)
+    return template('choose_view_format', sess=get_session())
+
 
 @get('/upload', name='upload_file')
 def upload_file():
     return template('upload', sess=get_session())
 
+
 @get('/viewdownload', name='view_download')
 def view_download():
     return template('viewdownload', sess=get_session())
-
 
 
 @route('/denied', name='denied')

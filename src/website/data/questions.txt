@@ -1,0 +1,39 @@
+Please Enter Your Name.
+Could you introduce yourself?
+Where do you enjoy spending your free time?
+What is your favorite movie/TV show?
+What do you enjoy the most about your favorite movie/TV show?
+What is your favorite book?
+What do you like most about this book?
+Why is it your favorite?
+What is your favorite location?
+What would you like to do in your fav location?
+Do you ever tell lies? Please explain why you answerered what you did.
+Do you have any bad habits? If so, please elaborate
+What are you passionate about?
+How did this passion start?
+Did anyone influence your passion?
+What do you want to be after you graduate from college?
+What aspects of the job/profession are attractive to you?
+How are you doing on the path to becoming that profession?
+What's your favorite course in college?
+How did you do in that course?
+Who's your favorite professor in college?
+Why do you like this professor so much?
+What's your favorite job?
+Why do you like it?
+You are given $1,000 that you have to spend on someone, who do you spend on?
+What would you buy that person?
+Why did you choose that person and that purchase?
+Who is your best friend?
+What is your best friend like?
+Why is he/she your best friend?
+In a team project, what kind of role do you prefer to play?
+What kind of individuals do you want to have on your project team?
+What will people say the best about you?
+What examples demonstrate your best qualities?
+What will people say the worst about you?
+What examples demonstrate your worst qualities?
+What are your unique qualities?
+What is your biggest weakness?
+What is your greatest talent?

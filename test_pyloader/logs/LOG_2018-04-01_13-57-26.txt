@@ -1,0 +1,25 @@
+Log file opened 13:57:26
+============================= test session starts =============================
+platform win32 -- Python 3.6.3, pytest-3.5.0, py-1.5.3, pluggy-0.6.0
+rootdir: E:\Users\Jonathan\Documents\programming\projects\test_pyloader, inifile:
+
+collecting 0 items                                                             
+collecting 1 item                                                              
+collecting 2 items                                                             
+collected 2 items                                                              
+
+input\test_sample.py F                                                   [ 50%]
+input\test_sample_2.py .                                                 [100%]
+
+================================== FAILURES ===================================
+_________________________________ test_answer _________________________________
+
+    def test_answer():
+>       assert func(3) == 5
+E       assert 4 == 5
+E        +  where 4 = func(3)
+
+input\test_sample.py:6: AssertionError
+===================== 1 failed, 1 passed in 0.05 seconds ======================
+---Testing Complete---
+Log File Closed 13:57:26

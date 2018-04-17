@@ -1,11 +1,14 @@
 import numpy as np
 import speech_recognition as sr
+import plotly
+from plotly.graph_objs import Bar, Layout
 from nltk.tokenize import TweetTokenizer, sent_tokenize
+from sklearn.linear_model import LinearRegression
 from nltk.stem import PorterStemmer
 from json import load
 
-DICTIONARY_FILE = "src/data/stemmed_liwc.json"
-LABELS_FILE = "src/data/labels.txt"
+DICTIONARY_FILE = "data/stemmed_liwc.json"
+LABELS_FILE = "data/labels.txt"
 
 with open(LABELS_FILE, "r") as f:
     LABELS = [l[:-1] for l in list(f)]
@@ -150,3 +153,64 @@ def calculate_error(predicted, actual):
         raise ValueError("Predicted and actual must both have shape (N, M)")
     return np.mean(np.absolute(np.subtract(predicted,actual)), axis=0)
 
+def train_model():
+    labels, data = load_data('data/real_data.txt')
+    x_train = []
+    y_train = []
+    for entry in data:
+        x_train.append(extract_features(entry[0])[1])
+        y_train.append(np.array([float(e) for e in entry[2:]]))
+    reg_model = LinearRegression()
+    reg_model.fit(x_train, y_train)
+    return reg_model
+
+def load_questions(filename):
+    out = []
+    with open(filename, 'r') as f:
+        for line in f:
+            out.append(line.strip())
+    return out
+
+def snap_boundaries(arr):
+    for i, element in enumerate(arr):
+        if element < 0:
+            arr[i] = 0
+        elif element > 100:
+            arr[i] = 100
+
+def get_average_scores():
+    labels, data = load_data('data/real_data.txt')
+    values = []
+    for entry in data:
+        values.append(np.array([float(e) for e in entry[2:]]))
+    values = np.array(values)
+    labels = labels[2:]
+    values = np.average(values, axis=0)
+    return labels, values
+
+def generate_report(results):
+    labels, _ = get_average_scores()
+    plotly.offline.plot([Bar(x=labels, y=results, name='Raw Scores')], show_link=False, filename='visualize.html')
+
+def generate_report_comparison(results):
+    labels, average_scores = get_average_scores()
+    trace1 = Bar(
+    x=labels,
+    y=results,
+    name='Your Scores'
+    )
+    trace2 = Bar(
+        x=labels,
+        y=average_scores,
+        name='Average Scores'
+    )
+
+    data = [trace1, trace2]
+    layout = Layout(
+        barmode='group'
+    )
+
+    plotly.offline.plot({
+        "data": data,
+        "layout": layout
+    }, auto_open=True, show_link=False, filename='visualize.html')
