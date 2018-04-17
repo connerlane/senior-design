@@ -177,9 +177,9 @@ def ask_question():
         if session['current_question'] >= len(QUESTIONS):
             session['survey_complete'] = True
             redirect('/show_results')
-        return template('question', sess=get_session(), question=QUESTIONS[session['current_question']])
+        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']])
     else:
-        return template('question', sess=get_session(), question=QUESTIONS[session['current_question']])
+        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']])
 
 
 @route('/show_results', name='show_results')
@@ -187,15 +187,51 @@ def show_results():
     session = get_session()
     if not 'survey_complete' in session:
         redirect('/')
+
+
+    
+
+    
+    redirect('/choose_view_format')
+
+@route('/choose_view_format', name='choose_view_format')
+def choose_view_format():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    return template('choose_view_format', sess=get_session())
+
+@route('/thank_you', name='thank_you')
+def thank_you():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    del session['survey_complete']
+    del session['current_question']
+    del session['answers']
+    return template('thank_you', sess=get_session())
+
+@route('/raw', name='raw')
+def raw():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
     feature_scores = extract_features(" ".join(session['answers'][1:]))[1].reshape(1, -1)
     results = MODEL.predict(feature_scores)[0]
     snap_boundaries(results)
     generate_report(results)
+    return template('choose_view_format', sess=get_session())
 
-    del session['survey_complete']
-    del session['current_question']
-    del session['answers']
-    redirect('/')
+@route('/percentile', name='percentile')
+def percentile():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    feature_scores = extract_features(" ".join(session['answers'][1:]))[1].reshape(1, -1)
+    results = MODEL.predict(feature_scores)[0]
+    snap_boundaries(results)
+    generate_report_comparison(results)
+    return template('choose_view_format', sess=get_session())
 
 
 @get('/upload', name='upload_file')

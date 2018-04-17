@@ -190,7 +190,7 @@ def get_average_scores():
 
 def generate_report(results):
     labels, _ = get_average_scores()
-    plotly.offline.plot([Bar(x=labels, y=results)], show_link=False, filename='visualize.html')
+    plotly.offline.plot([Bar(x=labels, y=results, name='Raw Scores')], show_link=False, filename='visualize.html')
 
 def generate_report_comparison(results):
     labels, average_scores = get_average_scores()
