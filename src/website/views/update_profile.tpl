@@ -1,5 +1,5 @@
 % rebase("layout.tpl", title="Update Profile")
-
+% if "permissions" in sess and sess["permissions"] == "MANAGER":
 <div class="container">
   <div class="row">
     <div class="twelve columns" style="margin-top: 4%;  ">
@@ -78,3 +78,5 @@
 
   </div>
 </div>
+% else:
+% include('login.tpl')
