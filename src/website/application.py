@@ -149,10 +149,7 @@ def create_user():
 @route('/', name='index')
 def index():
     s = bottle.request.environ.get('beaker.session')
-    if 'username' not in s:
-        redirect('/login')
-    else:
-        return template('index', sess=get_session())
+    return template('index', sess=get_session())
 
 
 @get('/start_interview', name='start_interview')

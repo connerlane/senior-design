@@ -25,7 +25,8 @@
         <img src="static/images/samford.jpeg">
       </div>
     </div>
-    <div class="section white">.
+    <div class="section white">. 
+      % if "permissions" in sess and sess["permissions"] == "MANAGER":
       <div class="row" style="text-align: center; margin-top: 0%; margin-bottom: 0%">
         <div class="col s4">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px;height: 90px; width: 400px"
@@ -34,15 +35,24 @@
         </div>
         <div class="col s4">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
-            href="/viewdownload">
-            <i class="material-icons right">arrow_downward</i>View/Download Data</a>
+            href="/start_interview">
+            <i class="material-icons right">edit</i>Take the interview</a>
         </div>
         <div class="col s4">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
-            href="/start_interview">
-            <i class="material-icons right">edit</i>Interview A Candidate</a>
+            href="/viewdownload">
+            <i class="material-icons right">arrow_downward</i>View/Download Data</a>
         </div>
       </div>
+      % else:
+      <div class="row" style="text-align: center; margin-top: 0%; margin-bottom: 0%">
+        <div class="col s12 m12">
+          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
+            href="/start_interview">
+            <i class="material-icons right">edit</i>Take the interview</a>
+        </div>
+      </div>
+      % end
     </div>
 
     </div>
@@ -54,8 +64,8 @@
           <h1 class="grey-text text-darken-2" style="font-size:45px">About Us</h2>
             <hr width="75%" align="center" style="margin: 30px">
 
-            <p class="grey-text text-darken-2" style="font-size: 15px">Personality Prediction 3.0 is a senior design project made to predict an interviewee's personality based off of
-              their written words. Made by Conner Lane, Sara Locklar, Eric Agnitsch, and Jonathan McGuckin.</p>
+            <p class="grey-text text-darken-2" style="font-size: 15px">Personality Prediction 3.0 is a senior design project made to predict an interviewee's personality based off
+              of their written words. Made by Conner Lane, Sara Locklar, Eric Agnitsch, and Jonathan McGuckin.</p>
         </div>
       </div>
     </div>

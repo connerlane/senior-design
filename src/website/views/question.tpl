@@ -1,5 +1,4 @@
 % rebase("layout.tpl", title="Survey")
-% if "permissions" in sess and sess["permissions"] == "MANAGER":
 <div class="container">
   <div class="row">
     <div class="twelve column" style="margin-top: 10%">
@@ -44,5 +43,3 @@
    }
  }
 </script>
-% else:
-% include('denied.tpl')

@@ -53,14 +53,10 @@
     {{!base}}
 
     %else:
-    <div class="container">
-      <div class="row">
-        <div class="twelve column" style="margin-top: 15%">
-          <h4 style="text-align: center">You are not logged in</h4>
-          <a href="/login" style="text-align: center; margin-top: 10%"><h5>Click here to log in</h5></a>
-        </div>
-      </div>
-    </div>
+
+    
+    {{!base}}
+    
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js">
       </script>
