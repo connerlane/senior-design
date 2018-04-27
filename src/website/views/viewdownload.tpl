@@ -11,9 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Personality Prediction 3.0</title>
   </head>
+    <div class= "section white">.
+        <div class="row" style="float: left; text-align: center; margin-top: 4%; margin-bottom: 5%">  
+            <a class="waves-effect waves-light white-text btn-small blue darken-4 z-depth-5" style="border-radius: 12px" href="/"><i class="material-icons right">arrow_back</i>Back to Home</a>
+        </div>
+    </div>
     <header class="header">
       <div class="container">
-        <div class="row" style="text-align: center;border-radius: 12px; margin-top: 15%">
+        <div class="row" style="text-align: center;border-radius: 12px; margin-top: 13%">
           <div class="col s12">
             <h3 class="black-text lighten-1">View/Download Data</h3>
             <hr width="75%" align="center">
@@ -41,7 +46,7 @@
           </div>
         </div>
    </body>
-   <footer class="page-footer white" style="margin-top: 5%">
+   <footer class="page-footer white" style="margin-top: 2%">
       <div class="footer-copyright blue darken-4">
         <div class="container">
           &#00169 2018 Copyright

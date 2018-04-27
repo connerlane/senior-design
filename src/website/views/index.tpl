@@ -61,11 +61,11 @@
     <div class="container">
       <div class="row" style="text-align: center;">
         <div class="col s12">
-          <h1 class="grey-text text-darken-2" style="font-size:45px">About Us</h2>
+          <h1 class="grey-text text-darken-2" style="font-size:45px">About This Project</h2>
             <hr width="75%" align="center" style="margin: 30px">
 
             <p class="grey-text text-darken-2" style="font-size: 15px">Personality Prediction 3.0 is a senior design project made to predict an interviewee's personality based off
-              of their written words. Made by Conner Lane, Sara Locklar, Eric Agnitsch, and Jonathan McGuckin.</p>
+              of their written or spoken words. Made by Conner Lane, Sara Locklar, Eric Agnitsch, and Jonathan McGuckin.</p>
         </div>
       </div>
     </div>

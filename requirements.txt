@@ -2,10 +2,7 @@ nltk
 scikit-learn
 numpy
 scipy
-speechrecognition
-pyaudio
-liwc
-matplotlib
 bottle
-plotly==2.5.1
+plotly
 beaker
+awsebcli

@@ -1,5 +1,4 @@
 import numpy as np
-import speech_recognition as sr
 import plotly
 from plotly.graph_objs import Bar, Layout
 from nltk.tokenize import TweetTokenizer, sent_tokenize
@@ -40,7 +39,7 @@ def load_data(filename):
                 text = " ".join(l[1:39]).replace("\"", "")
                 data.append([text] + [l[39]] + [float(x)
                                                 for x in l[40:]])
-        return labels, np.array(data)
+        return labels, data
 
 
 def get_speech(prompt):
