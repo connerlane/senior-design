@@ -6,3 +6,4 @@ bottle
 plotly
 beaker
 awsebcli
+gunicorn
