@@ -185,11 +185,8 @@ def show_results():
     if not 'survey_complete' in session:
         redirect('/')
 
-
-    
-
-    
     redirect('/choose_view_format')
+
 
 @route('/choose_view_format', name='choose_view_format')
 def choose_view_format():
@@ -197,6 +194,7 @@ def choose_view_format():
     if not 'survey_complete' in session:
         redirect('/')
     return template('choose_view_format', sess=get_session())
+
 
 @route('/thank_you', name='thank_you')
 def thank_you():
@@ -208,23 +206,27 @@ def thank_you():
     del session['answers']
     return template('thank_you', sess=get_session())
 
+
 @route('/raw', name='raw')
 def raw():
     session = get_session()
     if not 'survey_complete' in session:
         redirect('/')
-    feature_scores = extract_features(" ".join(session['answers'][1:]))[1].reshape(1, -1)
+    feature_scores = extract_features(" ".join(session['answers'][1:]))[
+        1].reshape(1, -1)
     results = MODEL.predict(feature_scores)[0]
     snap_boundaries(results)
     generate_report(results)
     return template('choose_view_format', sess=get_session())
+
 
 @route('/percentile', name='percentile')
 def percentile():
     session = get_session()
     if not 'survey_complete' in session:
         redirect('/')
-    feature_scores = extract_features(" ".join(session['answers'][1:]))[1].reshape(1, -1)
+    feature_scores = extract_features(" ".join(session['answers'][1:]))[
+        1].reshape(1, -1)
     results = MODEL.predict(feature_scores)[0]
     snap_boundaries(results)
     generate_report_comparison(results)
