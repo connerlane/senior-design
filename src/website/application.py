@@ -33,7 +33,8 @@ app = SessionMiddleware(bottle.app(), session_opts)
 QUESTIONS = load_questions('data/questions.txt')
 
 
-MODEL = train_model()
+# MODEL = train_model()
+MODEL = load_model()
 
 
 ###############################################################################
@@ -265,4 +266,4 @@ def send_profile_image(username):
 
 
 if __name__ == "__main__":
-    bottle.run(app=app, host='localhost', port=8080, reloader=True, debug=True)
+    bottle.run(app=app, host='0.0.0.0', port=80, reloader=True, debug=True)

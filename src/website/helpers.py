@@ -1,3 +1,11 @@
+import nltk
+import os
+try:    
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    nltk.data.path.append(dir_path + "/nltk_data")
+
 import numpy as np
 import plotly
 from plotly.graph_objs import Bar, Layout
@@ -5,6 +13,8 @@ from nltk.tokenize import TweetTokenizer, sent_tokenize
 from sklearn.linear_model import LinearRegression
 from nltk.stem import PorterStemmer
 from json import load
+
+
 
 DICTIONARY_FILE = "data/stemmed_liwc.json"
 LABELS_FILE = "data/labels.txt"
@@ -69,6 +79,21 @@ def get_speech(prompt):
             "Could not request results from Google Speech Recognition service; {0}".format(e))
         exit()
     return text
+
+def save_model(model):
+    np.save("weight_matrix/coef.npy", model.coef_)
+    np.save("weight_matrix/intercept.npy", model.intercept_)
+    
+    
+
+def load_model():
+    reg_model = LinearRegression()
+    c = np.load("weight_matrix/coef.npy")
+    i = np.load("weight_matrix/intercept.npy")
+    reg_model.coef_ = c
+    reg_model.intercept_ = i
+    return reg_model
+
 
 
 def parse_dic_file(dic_file):

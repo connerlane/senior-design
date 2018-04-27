@@ -32,7 +32,7 @@
      recognition.start();
 
      recognition.onresult = function(e) {
-       document.getElementById('answer').value = e.results[0][0].answer;
+       document.getElementById('answer').value += e.results[0][0].transcript + " ";
        recognition.stop();
      };
 
