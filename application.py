@@ -2,6 +2,7 @@
 import io
 import locale
 import pickle
+import os
 from sqlite3 import DatabaseError
 import warnings
 import bottle
@@ -218,7 +219,9 @@ def raw():
     results = MODEL.predict(feature_scores)[0]
     snap_boundaries(results)
     generate_report(results)
-    return template('choose_view_format', sess=get_session())
+    # return template('choose_view_format', sess=get_session())
+    return static_file("visualize.html", os.getcwd())
+
 
 
 @route('/percentile', name='percentile')
@@ -231,7 +234,9 @@ def percentile():
     results = MODEL.predict(feature_scores)[0]
     snap_boundaries(results)
     generate_report_comparison(results)
-    return template('choose_view_format', sess=get_session())
+    # return template('choose_view_format', sess=get_session())
+    return static_file("visualize.html", os.getcwd())
+    
 
 
 @get('/upload', name='upload_file')
