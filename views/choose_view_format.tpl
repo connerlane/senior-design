@@ -13,7 +13,7 @@
             <a class="button button-primary" href="/raw">As raw scores</a>
         </div>
         <div class="six columns">
-            <a class="button button-primary" href="/percentile">As a percentile</a>
+            <a class="button button-primary" href="/percentile">Against the average</a>
         </div>
     </div>
     <br><br>
