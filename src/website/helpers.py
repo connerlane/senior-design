@@ -151,7 +151,8 @@ def calculate_error(predicted, actual):
 
     if len(predicted.shape) != 2 or predicted.shape != actual.shape:
         raise ValueError("Predicted and actual must both have shape (N, M)")
-    return np.mean(np.absolute(np.subtract(predicted,actual)), axis=0)
+    return np.mean(np.absolute(np.subtract(predicted, actual)), axis=0)
+
 
 def train_model():
     labels, data = load_data('data/real_data.txt')
@@ -164,6 +165,7 @@ def train_model():
     reg_model.fit(x_train, y_train)
     return reg_model
 
+
 def load_questions(filename):
     out = []
     with open(filename, 'r') as f:
@@ -171,12 +173,14 @@ def load_questions(filename):
             out.append(line.strip())
     return out
 
+
 def snap_boundaries(arr):
     for i, element in enumerate(arr):
         if element < 0:
             arr[i] = 0
         elif element > 100:
             arr[i] = 100
+
 
 def get_average_scores():
     labels, data = load_data('data/real_data.txt')
@@ -188,16 +192,19 @@ def get_average_scores():
     values = np.average(values, axis=0)
     return labels, values
 
+
 def generate_report(results):
     labels, _ = get_average_scores()
-    plotly.offline.plot([Bar(x=labels, y=results, name='Raw Scores')], show_link=False, filename='visualize.html')
+    plotly.offline.plot([Bar(x=labels, y=results, name='Raw Scores')],
+                        show_link=False, filename='visualize.html')
+
 
 def generate_report_comparison(results):
     labels, average_scores = get_average_scores()
     trace1 = Bar(
-    x=labels,
-    y=results,
-    name='Your Scores'
+        x=labels,
+        y=results,
+        name='Your Scores'
     )
     trace2 = Bar(
         x=labels,

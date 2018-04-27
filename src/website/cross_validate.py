@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import warnings
 import numpy as np
-from sklearn.neural_network import MLPRegressor
+from sklearn.linear_model import LinearRegression
 from tabulate import tabulate
 from helpers import *
+from itertools import chain
 warnings.filterwarnings(action="ignore", module="scipy",
                         message="^internal gelsd")  # ignore this
 
@@ -12,7 +13,7 @@ NUM_PARTITIONS = 10
 
 # initialize variables
 print("reading data...")
-labels, data = load_data("src/data/real_data.txt")
+labels, data = load_data("data/real_data.txt")
 
 
 np.random.shuffle(data)  # shuffle the data
@@ -32,7 +33,7 @@ for i in range(NUM_PARTITIONS):
     for entry in train:
         x_train.append(extract_features(entry[0])[1])
         y_train.append(np.array([float(e) for e in entry[2:]]))
-    reg_model = MLPRegressor()
+    reg_model = LinearRegression()
     reg_model.fit(x_train, y_train)
 
     x_val = []
@@ -42,21 +43,18 @@ for i in range(NUM_PARTITIONS):
         y_val.append(np.array([float(e) for e in entry[2:]]))
     pred = reg_model.predict(x_val)
     table.append(calculate_error(pred, np.array(y_val)))
-    with open("output_NN.txt", "w") as f:
-        new_table = np.array(table)
-        h = ["Label"] + ["Iter. {}".format(q + 1) for q in range(i + 1)]
-        f.write(tabulate(new_table, headers=labels[2:]))
-        f.write("\n\nAverage / Standard Deviation\n\n")
-        avg = np.mean(new_table, axis=0)
-        std = np.std(new_table, axis=0)
-        f.write(tabulate([avg, std], headers=labels[2:]))
+with open("linear_cross.csv", "w") as f:
+    new_table = np.array(table)
+    f.write(",".join(labels[2:]) + "\n")
+    avg = np.mean(new_table, axis=0)
+    std = np.std(new_table, axis=0)
+    f.write(",".join([str(q) for q in avg]) + "\n")
+    f.write(",".join([str(q) for q in std]) + "\n")
 
 
-
-
-plt.bar(labels[2:], avg, label="difference")
-plt.title("Predicted vs actual Difference")
-plt.xticks(rotation='vertical')
-plt.gcf().subplots_adjust(bottom=0.32)
-plt.legend()
-plt.show()
+# plt.bar(labels[2:], avg, label="difference")
+# plt.title("Predicted vs actual Difference")
+# plt.xticks(rotation='vertical')
+# plt.gcf().subplots_adjust(bottom=0.32)
+# plt.legend()
+# plt.show()
