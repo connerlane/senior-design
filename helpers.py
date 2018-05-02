@@ -1,10 +1,5 @@
 import nltk
 import os
-try:    
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    nltk.data.path.append(dir_path + "/nltk_data")
 
 import numpy as np
 import plotly
