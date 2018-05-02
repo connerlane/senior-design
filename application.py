@@ -19,8 +19,7 @@ warnings.filterwarnings(action="ignore", module="scipy",
 user_db = UserDatabase('db/user_database.db')
 
 session_opts = {
-    'session.cookie_expires': 3000,
-    'session.encrypt_key': 'TEST KEY PLEASE IGNORE',
+    'session.cookie_expires': 3600 * 24, # 1 day
     'session.httponly': True,
     'session.timeout': 3600 * 24,  # 1 day
     'session.type': 'memory',
@@ -176,9 +175,9 @@ def ask_question():
         if session['current_question'] >= len(QUESTIONS):
             session['survey_complete'] = True
             redirect('/show_results')
-        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']])
+        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']], num_questions=len(QUESTIONS))
     else:
-        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']])
+        return template('question', sess=get_session(), index=session['current_question'] + 1, question=QUESTIONS[session['current_question']], num_questions=len(QUESTIONS))
 
 
 @route('/show_results', name='show_results')

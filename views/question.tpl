@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="twelve column" style="margin-top: 10%">
-      <h6 style="text-align: center">Question {{index}} / 39</h6> 
+      <h6 style="text-align: center">Question {{index}} / {{num_questions}}</h6> 
       <h4 style="text-align: center">{{question}}</h4>
     </div>
   </div>

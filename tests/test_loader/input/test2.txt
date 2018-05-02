@@ -1,6 +1,0 @@
-{
-	"test004": {
-		"testCondition": "Potato",
-		"expectedResult": "Potato"
-	}
-}
