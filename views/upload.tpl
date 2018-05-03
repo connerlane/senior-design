@@ -23,7 +23,7 @@
         <div class="row" style="text-align: center;border-radius: 12px">
           <div class="col s12">
             <h4 class="black-text lighten-1">Upload Model</h3>
-              <body style="color: red; font-size: 20px">WARNING: this action will overwrite the state of the predictive model. You may want to download the current model as a backup before performing this action.</body>
+              <body style="color: red; font-size: 20px">WARNING: this action will overwrite the state of the predictive model. You may want to <a href="/download/weight_matrix/model.npz">download the current model</a> as a backup before performing this action.</a></body>
           </div>
         </div>
       </div>
