@@ -44,6 +44,13 @@ MODEL = load_model()
 ###############################################################################
 # Session Functions ###########################################################
 ###############################################################################
+def user_is_mobile():
+    agent = request.headers.get('User-Agent')
+    phones = ["iphone", "android", "blackberry", "windows phone"]
+    if any(phone in agent.lower() for phone in phones):
+        return True
+    return False
+
 
 def get_session():
     return bottle.request.environ.get('beaker.session')
@@ -190,8 +197,13 @@ def choose_view_format():
     session = get_session()
     if not 'survey_complete' in session:
         redirect('/')
+    if not "".join(session["answers"][1:]): # if no questions answered
+        return template('index', sess=get_session())
     save_response(session["answers"][0], "\t".join(session["answers"][1:]))
-    return template('choose_view_format', sess=get_session())
+    if user_is_mobile():
+        redirect('/big5')
+    else:
+        return template('choose_view_format', sess=get_session())
 
 
 @route('/download/<filename:path>')
@@ -241,6 +253,19 @@ def raw():
     results = MODEL.predict(feature_scores)[0]
     snap_boundaries(results)
     generate_report(results)
+    # return template('choose_view_format', sess=get_session())
+    return static_file("visualize.html", os.getcwd())
+
+@route('/big5', name='big5')
+def big5():
+    session = get_session()
+    if not 'survey_complete' in session:
+        redirect('/')
+    feature_scores = extract_features(" ".join(session['answers'][1:]))[
+        1].reshape(1, -1)
+    results = MODEL.predict(feature_scores)[0]
+    snap_boundaries(results)
+    big5_radar(results)
     # return template('choose_view_format', sess=get_session())
     return static_file("visualize.html", os.getcwd())
 

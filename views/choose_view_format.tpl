@@ -9,17 +9,20 @@
 
 
     <div class="row" style="text-align: center; margin-top: 5%">
-        <div class="six columns">
+        <div class="four columns">
             <a class="button button-primary" href="/raw">As raw scores</a>
         </div>
-        <div class="six columns">
+        <div class="four columns">
+                <a class="button button-primary" href="/big5">Big 5 Only</a>
+            </div>
+        <div class="four columns">
             <a class="button button-primary" href="/percentile">Against the average</a>
         </div>
     </div>
     <br><br>
     <div class="row" style="margin-top: 5%; text-align: center">
         <div class="twelve columns">
-            <a class="button button-primary" href="/thank_you">Done</a>
+            <a class="button" href="/thank_you">Done</a>
         </div>
     </div>
 </div>

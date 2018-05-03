@@ -3,7 +3,7 @@ import os
 
 import numpy as np
 import plotly
-from plotly.graph_objs import Bar, Layout
+from plotly.graph_objs import Bar, Layout, Scatterpolar, Figure
 from nltk.tokenize import TweetTokenizer, sent_tokenize
 from sklearn.linear_model import LinearRegression
 from nltk.stem import PorterStemmer
@@ -162,10 +162,41 @@ def get_average_scores():
     return labels, values
 
 
+def get_big5_scores(results):
+    labels, _ = get_average_scores()
+    big5 = ["Openness", "Conscientiousness", "Extroversion", "Agreeableness", "Neuroticism"]
+    big5_scores = []
+    lab_list = list(labels)
+    for e in big5:
+        big5_scores.append(results[lab_list.index(e)])
+    return big5, big5_scores
+
+
 def generate_report(results):
     labels, _ = get_average_scores()
     plotly.offline.plot([Bar(x=labels, y=results, name='Raw Scores')],
-                        show_link=False, filename='visualize.html')
+                        show_link=False, filename='visualize.html', auto_open=False)
+
+def big5_radar(results):
+    big5, big5_scores = get_big5_scores(results)
+    data = [Scatterpolar(
+    r = big5_scores,
+    theta = big5,
+    fill = 'toself'
+    )]
+
+    layout = Layout(
+    polar = dict(
+        radialaxis = dict(
+        visible = True,
+        range = [0, 100]
+        )
+    ),
+    showlegend = False
+    )
+
+    fig = Figure(data=data, layout=layout)
+    plotly.offline.plot(fig, filename = "visualize.html", auto_open=False)
 
 
 def generate_report_comparison(results):
