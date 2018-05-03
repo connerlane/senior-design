@@ -43,40 +43,6 @@
       <input class="button-primary" style="margin: 3%" type="submit" value="Update Password">
     </fieldset>
   </form>
-  <hr>
-  <div class = "row">
-    <div class="four columns">
-      <h5 style="text-align: center"></h5>
-    </div>
-    <div class="four columns">
-      <h5 style="text-align: center">Change Profile Picture</h5>
-    </div>
-  </div>
-
-  
-  <div class="four columns">
-    <div class="row" style="margin-top: 5%">
-      % if 'has_picture' in sess and sess['has_picture']:
-      <img src="/profile/{{ sess['username'] }}/image" alt="Profile Picture" style="max-width: 100%; max-height: 100%; width: 15vw; height: 15vw">
-      %else:
-      <img src="/static/images/generic-profile.jpg" alt="Profile Picture" style="max-width: 100%; max-height: 100%; width: 15vw; height: 15vw">
-      % end
-    </div>
-  </div>
-  <div class="six columns" style="margin-top: 3%">
-    <form action="/change_picture" method="POST" enctype="multipart/form-data">
-      <fieldset>
-        <label for="picture">New Picture</label>
-        <input class="u-full-width" id="picture" type="file" accept="image/*" name="picture">
-      </fieldset>
-      <div class="row">
-        <input class="button-primary" style="margin: 3% 3% 3% 0;" type="submit" value="Update Picture">
-      </div>
-
-    </form>
-
-
-  </div>
 </div>
 % else:
 % include('login.tpl')

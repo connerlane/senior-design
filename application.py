@@ -204,6 +204,9 @@ def download(filename):
 
 @route('/upload_model', method='POST')
 def do_upload():
+    s = get_session()
+    if not 'username' in s:
+        redirect('/denied')
     upload = request.files.get('filename')
     name, ext = os.path.splitext(upload.filename)
     if ext != '.npz':

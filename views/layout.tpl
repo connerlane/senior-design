@@ -34,11 +34,6 @@
     <div style="text-align: right; margin: 3% 3% -10%">
       <div class="row">
         <h5>
-        % if 'has_picture' in sess and sess['has_picture']:
-        <img src="/profile/{{ sess['username'] }}/image" alt="Profile Picture" style="max-width: 100%; max-height: 100%; width: 4vw; height: 4vw; margin-right: 1%">
-        %else:
-        <img src="/static/images/generic-profile.jpg" alt="Profile Picture" style="max-width: 100%; max-height: 100%; width: 4vw; height: 4vw; margin-right: 1%">
-        % end
         <a href="/update_profile/self">{{sess["username"]}} 
           %if sess["permissions"] == "MANAGER":
           &#9733; <!-- add a star -->
