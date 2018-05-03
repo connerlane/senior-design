@@ -29,17 +29,17 @@
       % if "permissions" in sess and sess["permissions"] == "MANAGER":
       <div class="row" style="text-align: center; margin-top: 3%; margin-bottom: 0%">
         <div class="col s4">
-          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px;height: 90px; width: 400px"
+          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px;height: 90px; width: 360px"
             href="/upload">
             <i class="material-icons right">arrow_upward</i>Upload Data</a>
         </div>
         <div class="col s4">
-          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
+          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 360px"
             href="/start_interview">
             <i class="material-icons right">edit</i>Take the interview</a>
         </div>
         <div class="col s4">
-          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
+          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 360px"
             href="/viewdownload">
             <i class="material-icons right">arrow_downward</i>View/Download Data</a>
         </div>
@@ -47,7 +47,7 @@
       % else:
       <div class="row" style="text-align: center; margin-top: 3%; margin-bottom: 0%">
         <div class="col s12 m12">
-          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
+          <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 360px"
             href="/start_interview">
             <i class="material-icons right">edit</i>Take the interview</a>
         </div>
