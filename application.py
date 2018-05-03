@@ -231,6 +231,23 @@ def do_upload():
     # TODO: make a "successful upload" page
     return template('index', sess=get_session())
 
+@route('/upload_train_data', method='POST')
+def do_upload_train():
+    s = get_session()
+    if not 'username' in s:
+        redirect('/denied')
+    upload = request.files.get('filename')
+    name, ext = os.path.splitext(upload.filename)
+    if ext != '.csv':
+        return 'File extension not allowed.'  # TODO: make a nicer page for this
+    upload.filename = "results.csv"
+    save_path = os.getcwd()
+    # appends upload.filename automatically
+    upload.save(save_path, overwrite=True)
+    process_new_csv("results.csv")
+    MODEL = train_model()
+    # TODO: make a "successful train"
+    return template('index', sess=get_session())
 
 @route('/thank_you', name='thank_you')
 def thank_you():
@@ -284,10 +301,17 @@ def percentile():
     return static_file("visualize.html", os.getcwd())
 
 
-@get('/upload', name='upload_file')
-def upload_file():
-    return template('upload', sess=get_session())
+@get('/upload_model', name='upload_model')
+def upload_model():
+    return template('upload_model', sess=get_session())
 
+@get('/upload_train_page', name='upload_train_page')
+def upload_train_page():
+    return template('upload_train_page', sess=get_session())
+
+@get('/upload', name='upload')
+def upload():
+    return template('upload', sess=get_session())
 
 @get('/viewdownload', name='view_download')
 def view_download():

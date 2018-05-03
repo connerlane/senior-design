@@ -11,7 +11,7 @@
       <div class="row" style="margin-top: 5%">
         <textarea class="u-full-width" style="height: 200px" placeholder="Enter text..." id="answer" name="answer"></textarea>
       </div>
-      <img onclick="startDictation()" src="//i.imgur.com/cHidSVu.gif" />
+      <img onclick="startDictation()" src="//i.imgur.com/cHidSVu.gif" id="mic"/>
       <!-- <input type="text" x-webkit-speech> -->
       <a class="button" href="/" style="margin: 3%; margin-left: 0%">Cancel</a>
       <input class="button-primary" type="submit" value="Next">
@@ -42,4 +42,10 @@
 
    }
  }
+window.onload = function() {
+  var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  if (!isChrome) {
+    document.getElementById('mic').style.display = 'none';
+  }
+};
 </script>

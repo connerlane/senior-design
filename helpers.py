@@ -1,13 +1,13 @@
-import nltk
+from json import load
 import os
-
+import csv
 import numpy as np
+import nltk
 import plotly
 from plotly.graph_objs import Bar, Layout, Scatterpolar, Figure
 from nltk.tokenize import TweetTokenizer, sent_tokenize
 from sklearn.linear_model import LinearRegression
 from nltk.stem import PorterStemmer
-from json import load
 from file_manip import load_data
 
 
@@ -221,3 +221,29 @@ def generate_report_comparison(results):
         "data": data,
         "layout": layout
     }, auto_open=False, show_link=False, filename='visualize.html')
+
+
+
+def process_new_csv(csv_path):
+    relevant_columns = set()
+    with open("data/relevant_columns.txt", 'r') as f:
+        for line in f:
+            relevant_columns.add(line.strip())
+    import csv
+    with open(csv_path,"rt", encoding="utf8") as source:
+        rdr= csv.reader( source )
+        indexs = []
+        for r in rdr:
+            for c in r:
+                if c in relevant_columns:
+                    indexs.append(r.index(c))
+            break # only want first row
+    with open(csv_path,"rt", encoding="utf8") as source:
+        with open("data/real_data.txt","wt") as result:
+            rdr2= csv.reader( source )
+            for r in rdr2:
+                cols = []
+                for i, c in enumerate(r):
+                    if i in indexs:
+                        cols.append(c)
+                result.write( "\t".join(cols) + "\n" )
