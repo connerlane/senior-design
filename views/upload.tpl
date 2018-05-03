@@ -12,7 +12,7 @@
     <title>Personality Prediction 3.0</title>
 
   </head>
-  <div class= "section white">.
+  <div class= "section white">
         <div class="row" style="float: left; text-align: center; margin-top: 4%; margin-bottom: 5%">  
             <a class="waves-effect waves-light white-text btn-small blue darken-4 z-depth-5" style="border-radius: 12px" href="/"><i class="material-icons right">arrow_back</i>Back to Home</a>
         </div>
@@ -22,30 +22,29 @@
       <div class="container">
         <div class="row" style="text-align: center;border-radius: 12px">
           <div class="col s12">
-            <h3 class="black-text lighten-1">Upload Training Data</h3>
-            <hr width="75%" align="center">
+            <h4 class="black-text lighten-1">Upload Model</h3>
+              <body style="color: red; font-size: 20px">WARNING: this action will overwrite the state of the predictive model. You may want to download the current model as a backup before performing this action.</body>
           </div>
         </div>
       </div>
     </header>
     <body class = "container">   
-      <div class = "row" style="text-align: center; margin-top: 10%">
-         <form class = "col s4 offset-s4">
+      <div class = "row" style="text-align: center; margin-top: 3%">
+         <form class = "col s4 offset-s4" action="/upload_model" method="post" enctype="multipart/form-data">
             <div class = "row">
-               <label>Please choose a file to upload.</label>
+               <label>Upload your .npz file here</label>
                <div class = "file-field input-field">
                   <div class = "btn waves-effect waves-light btn-large blue darken-4 z-depth-5">
-                     <span>Browse</span>
-                     <input type = "file" />
-                  </div>
-                  
+                      <span>Browse</span>
+                      <input type = "file" name="filename"/>
+                   </div>
                   <div class = "file-path-wrapper">
-                     <input class = "file-path validate" type = "text"
+                     <input class = "file-path" type = "text"
                         placeholder = "Upload file" />
                   </div>
                </div>
-            </div>
-         </form>       
+            </div>    
+            <input type="submit" value="Start upload" />  
       </div>
    </body>
    <footer class="page-footer white" style="margin-top: 15%">

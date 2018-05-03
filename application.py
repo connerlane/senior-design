@@ -13,13 +13,15 @@ from random import choice
 
 from db_utils.users import UserDatabase, User
 from helpers import *
+from file_manip import load_questions, load_model, save_response
+
 locale.setlocale(locale.LC_ALL, '')
 warnings.filterwarnings(action="ignore", module="scipy",
-                        message="^internal gelsd")  # ignore this
+                        message="^internal gelsd")  # ignore this (just to supress warning)
 user_db = UserDatabase('db/user_database.db')
 
 session_opts = {
-    'session.cookie_expires': 3600 * 24, # 1 day
+    'session.cookie_expires': 3600 * 24,  # 1 day
     'session.httponly': True,
     'session.timeout': 3600 * 24,  # 1 day
     'session.type': 'memory',
@@ -34,6 +36,8 @@ QUESTIONS = load_questions('data/questions.txt')
 
 
 # MODEL = train_model()
+# # it's easier to load the model from a save
+# than to  train every time its opened
 MODEL = load_model()
 
 
@@ -121,14 +125,6 @@ def user(username):
     return {}  # TODO: Create user page.
 
 
-@route('/admin', name='admin')
-def admin():
-    s = get_session()
-    if not user_db.authorize(s['username']):
-        redirect('/denied')
-    return {}  # TODO: Create admin page.
-
-
 @get('/create_user')
 @post('/create_user')
 def create_user():
@@ -194,7 +190,31 @@ def choose_view_format():
     session = get_session()
     if not 'survey_complete' in session:
         redirect('/')
+    save_response(session["answers"][0], "\t".join(session["answers"][1:]))
     return template('choose_view_format', sess=get_session())
+
+
+@route('/download/<filename:path>')
+def download(filename):
+    s = get_session()
+    if not 'username' in s:
+        redirect('/denied')
+    return static_file(filename, root=os.getcwd() + '/data', download=filename)
+
+
+@route('/upload_model', method='POST')
+def do_upload():
+    upload = request.files.get('filename')
+    name, ext = os.path.splitext(upload.filename)
+    if ext != '.npz':
+        return 'File extension not allowed.'  # TODO: make a nicer page for this
+    upload.filename = "model.npz"
+    save_path = os.getcwd() + "/data/weight_matrix"
+    # appends upload.filename automatically
+    upload.save(save_path, overwrite=True)
+    MODEL = load_model()
+    # TODO: make a "successful upload" page
+    return template('index', sess=get_session())
 
 
 @route('/thank_you', name='thank_you')
@@ -222,7 +242,6 @@ def raw():
     return static_file("visualize.html", os.getcwd())
 
 
-
 @route('/percentile', name='percentile')
 def percentile():
     session = get_session()
@@ -235,7 +254,6 @@ def percentile():
     generate_report_comparison(results)
     # return template('choose_view_format', sess=get_session())
     return static_file("visualize.html", os.getcwd())
-    
 
 
 @get('/upload', name='upload_file')

@@ -25,9 +25,9 @@
         <img src="static/images/samford.jpeg">
       </div>
     </div>
-    <div class="section white">. 
+    <div class="section white">
       % if "permissions" in sess and sess["permissions"] == "MANAGER":
-      <div class="row" style="text-align: center; margin-top: 0%; margin-bottom: 0%">
+      <div class="row" style="text-align: center; margin-top: 3%; margin-bottom: 0%">
         <div class="col s4">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px;height: 90px; width: 400px"
             href="/upload">
@@ -45,7 +45,7 @@
         </div>
       </div>
       % else:
-      <div class="row" style="text-align: center; margin-top: 0%; margin-bottom: 0%">
+      <div class="row" style="text-align: center; margin-top: 3%; margin-bottom: 0%">
         <div class="col s12 m12">
           <a class="waves-effect waves-light white-text btn-large blue darken-4 z-depth-5" style="border-radius: 12px; padding-top: 15px; height: 90px; width: 400px"
             href="/start_interview">
