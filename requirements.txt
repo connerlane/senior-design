@@ -5,5 +5,4 @@ scipy
 bottle
 plotly
 beaker
-awsebcli
 gunicorn
